@@ -3,7 +3,7 @@ export class WebSocketService {
     client: WebSocket;
 
     constructor() {
-        this.client = new WebSocket('ws://localhost:9000');
+        this.client = new WebSocket('ws://192.168.1.23:9000');
     }
 
     getChannel(): WebSocket {

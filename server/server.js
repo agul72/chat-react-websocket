@@ -1,4 +1,6 @@
 const WebSocket = require('ws');
+// const {v4} = require('uuid');
+const { uuid } = require('uuidv4');
 const MessageService = require('./dao/message.service');
 
 const messageService = new MessageService();
@@ -8,7 +10,8 @@ const wsServer = new WebSocket.Server({port: 9000});
 wsServer.on('connection', onConnect);
 
 function onConnect(wsClient) {
-    console.log('New user connected' + wsClient.Host);
+    wsClient.id = uuid();
+    console.log('New user connected', wsClient.id);
     // Send hello-message to client
     wsClient.send(JSON.stringify({
         date: new Date(Date.now),
@@ -28,7 +31,9 @@ function onConnect(wsClient) {
                     const newMessage = jsonMessage.data;
                     messageService.addMessage(newMessage);
                     wsServer.clients.forEach(client => {
-                        client.send(JSON.stringify(newMessage));
+                        if(client.readyState === WebSocket.OPEN) {
+                            client.send(JSON.stringify(newMessage));
+                        }
                     });
                     break;
                 default:
@@ -39,7 +44,7 @@ function onConnect(wsClient) {
         }
     });
     wsClient.on('close', () => {
-        console.log('User ' + wsClient + ' disconnected');
+        console.log('User ' + wsClient.id + ' disconnected');
     });
 }
 
