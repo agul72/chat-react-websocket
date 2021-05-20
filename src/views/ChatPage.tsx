@@ -38,8 +38,8 @@ function ChatPage(props: propsType): JSX.Element {
             setWsReady(false);
         });
         wsChannel?.addEventListener('message', (e) => {
-            console.log(JSON.parse(e.data));
-            setMessages((prevMessages) => [...prevMessages, JSON.parse(e.data)]);
+            // console.log(JSON.parse(e.data));
+            setMessages((prevMessages) => [JSON.parse(e.data)].concat(...prevMessages));
         });
 
     }, [wsChannel]);

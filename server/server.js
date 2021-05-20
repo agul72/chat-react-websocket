@@ -1,6 +1,5 @@
 const WebSocket = require('ws');
-// const {v4} = require('uuid');
-const { uuid } = require('uuidv4');
+const {v4} = require('uuid');
 const MessageService = require('./dao/message.service');
 
 const messageService = new MessageService();
@@ -10,7 +9,7 @@ const wsServer = new WebSocket.Server({port: 9000});
 wsServer.on('connection', onConnect);
 
 function onConnect(wsClient) {
-    wsClient.id = uuid();
+    wsClient.id = v4();
     console.log('New user connected', wsClient.id);
     // Send hello-message to client
     wsClient.send(JSON.stringify({

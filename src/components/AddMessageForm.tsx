@@ -10,7 +10,7 @@ type PropsType = {
 function AddMessageForm(props: PropsType): JSX.Element {
 
     const lengthRegex = /^.{5,120}$/;
-    const alphabeticRegex = /^[a-zA-Z\s.,?!;:-]*$/;
+    const alphabeticRegex = /^[a-zA-Z\s.,?!;:'-]*$/;
 
     const [content, setContent] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string[]>([]);

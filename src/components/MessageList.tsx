@@ -11,7 +11,7 @@ function MessageList(props: PropsType) {
     return (
         <div
             className="list-group"
-            style={{height: '400px', overflowY: 'auto'}}
+            style={{height: '60vh', overflowY: 'auto'}}
         >
             {!!props.messages && !!props.messages.length && props.messages.map((message, index) =>
                 <MessageItem
